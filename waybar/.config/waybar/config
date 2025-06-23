@@ -1,0 +1,132 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 53,               // Increased height to match CSS padding
+  "spacing": 8,               // More spacing between modules for a cleaner look
+
+  "modules-left": [
+    "hyprland/workspaces",
+        "custom/weather",
+  "cpu",
+    "custom/gpu-temp"
+      ],
+
+  "modules-center": ["clock"],
+
+  "modules-right": [
+
+    "network" ,"bluetooth",
+    "pulseaudio",
+    "backlight",
+
+    "battery",
+    "custom/notifications"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+
+      "urgent": "",
+      "active": "",
+      "default": ""
+    },
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": []
+
+    }
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}" ,
+    "format-alt": "{:%A, %B %d, %Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "hyprctl dispatch exec 'gsimplecal'"
+  },
+
+
+  "custom/weather": {
+    "format": "{}",
+    "tooltip": true,
+    "interval": 600,
+    "exec": "~/.config/waybar/scripts/weather.sh",
+    "return-type": "json"
+  },
+
+  "cpu": {
+    "format": "CPU {usage}%",
+    "tooltip": true,
+    "interval": 2,
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+
+  "custom/gpu-temp": {
+    "format": "GPU {}°C",
+    "tooltip": true,
+    "interval": 2,
+    "exec": "~/.config/waybar/scripts/gpu-temp.sh",
+    "return-type": "json"
+  },
+
+  "network": {
+    "format-wifi": "📶 {essid}",
+    "format-ethernet": "🌐 {ipaddr}",
+    "format-disconnected": "📡 Disconnected",
+    "tooltip-format": "SSID: {essid}\nSignal: {signalStrength}%\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",
+    "on-click": "nmcli radio wifi $(nmcli radio wifi | grep enabled && echo off || echo on)"
+  },
+ "pulseaudio": {
+  "format": "{volume}% ",
+  "format-muted": "",
+  "scroll-step": 5,
+  "on-click": "pavucontrol",
+  "on-click-right": "pamixer -t",
+  "on-scroll-up": "pamixer -i 5",
+  "on-scroll-down": "pamixer -d 5",
+  "max-volume": 150
+},
+
+  "backlight": {
+    "format": "☀️ {percent}%",
+    "tooltip": true,
+    "interval": 1,
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": " Off",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "on-click": "bluetoothctl power $(bluetoothctl show | grep Powered: yes && echo off || echo on)"
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "⚡️ {capacity}%",
+    "format-icons": ["🔋", "🔋", "🔋"],
+    "tooltip-format": "{timeTo} ({power}W)",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+"custom/notifications": {
+  "exec": "bash -c 'count=$(dunstctl count displayed); if [ \"$count\" -gt 0 ]; then echo \"\"; else echo \"\"; fi'",
+  "interval": 3,
+  "format": "{}",
+  "on-click": "dunstctl close",
+  "tooltip": false
+}
+
+
+}
+

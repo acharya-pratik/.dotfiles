@@ -1,0 +1,7 @@
+[Unit]
+Description=Change wallpaper and theme
+
+[Service]
+Type=oneshot
+ExecStart=/home/pratik/.config/hypr/scripts/change_wallpaper.sh
+cripts/change_wallpaper.sh

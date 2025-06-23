@@ -1,0 +1,17 @@
+[global]
+geometry = "100x50"            # Max size
+offset = 0x100                 # 0 from center X, 100px from bottom
+origin = bottom-center         # Position at bottom center
+transparency = 30              # Optional: semi-transparent
+corner_radius = 10             # Rounded corners
+padding = 6
+frame_width = 0
+font = JetBrainsMono 10
+timeout = 1                   # Timeout in seconds (rounded from 300ms)
+layer = overlay
+
+[urgency_low]
+background = "#1e1e2e"
+foreground = "#ffffff"
+timeout = 1
+

@@ -1,0 +1,7 @@
+
+[Unit]
+Description=Change wallpaper every 3 hours
+
+[Service]
+Type=oneshot
+ExecStart=/home/pratik/.config/scripts/wallpaper-changer.sh

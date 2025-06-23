@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Cliphist Clipboard Tracker
+
+[Service]
+ExecStart=/usr/bin/wl-paste --watch cliphist store
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
