@@ -1,0 +1,15 @@
+return {
+  require("user.plugins.catppuccin"),
+  require("user.plugins.telescope"),
+  require("user.plugins.treesitter"),
+  require("user.plugins.lualine"),
+  require("user.plugins.neotree"),
+  require("user.plugins.lsp-config"),
+  require("user.plugins.none-ls"),
+  require("user.plugins.completion"),
+  require("user.plugins.debugging"),
+  require("user.plugins.gitsigns"),
+  -- require("user.plugins.autopairs"),
+  require("user.plugins.trouble"),
+  require("user.plugins.mini"),
+}
