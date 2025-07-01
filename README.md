@@ -1,12 +1,12 @@
-just a newbe starting with Linux and customizing it. 
-these are my .dotfiles for
-  1. hyprland
-  2. wayland
+Just a newbie starting with Linux and customizing it. 
+These are my .dotfiles for
+  1. Hyprland
+  2. Wayland
   3. nvim
-  4. some system settings to change wallpapers and other stuffs
+  4. Some system settings to change wallpapers and other stuff
+  5. Now I have even added bashrc and zshrc
 
-
-my arch dotfilse
+My arch dotfilse
 
 
 git clone https://github.com/acharya-pratik/.dotfiles.git ~/.dotfiles
