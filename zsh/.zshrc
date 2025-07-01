@@ -22,7 +22,7 @@ alias update='sudo pacman -Syu && yay -Syu'
 alias cleanup='sudo pacman -Rns $(pacman -Qdtq)'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 eval "$(starship init zsh)"
-source ~/venv/bin/activate
+# source ~/venv/bin/activate
 
 eval "$(atuin init zsh)"
 eval "$(atuin init zsh)"
