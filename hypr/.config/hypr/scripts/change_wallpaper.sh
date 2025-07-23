@@ -15,7 +15,7 @@ while true; do
     if [ -n "$IS_CHARGING" ] || [ "$CHARGE" -gt 95 ]; then
         echo "[+] Charging or battery is $CHARGE%. Changing wallpaper..."
 
-        WALLPAPER=$(find ~/Pictures/wallpapers -type f | shuf -n 1)
+        WALLPAPER=$(find  wallpapers -type f | shuf -n 1)
         swww img "$WALLPAPER" --transition-type any --transition-duration 2
 
         sleep 1200  # Sleep for 20 minutes
