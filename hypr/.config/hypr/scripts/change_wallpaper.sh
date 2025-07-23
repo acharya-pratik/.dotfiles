@@ -1,16 +1,31 @@
+
 #!/bin/bash
 
-# Only run if device is charging
-if upower -i $(upower -e | grep BAT) | grep -q "state:\s*charging"; then
-    echo "[+] Laptop is charging. Changing wallpaper..."
-else
-    echo "[!] Not charging. Skipping wallpaper change."
-    exit 0
-fi
+while true; do
+    BATTERY_PATH=$(upower -e | grep BAT)
+    BATTERY_INFO=$(upower -i "$BATTERY_PATH")
 
-# Pick a random wallpaper
-WALLPAPER=$(find ~/Pictures/wallpapers -type f | shuf -n 1)
+    # Get charging state
+    IS_CHARGING=$(echo "$BATTERY_INFO" | grep -E "state:\s*charging")
 
-# Set wallpaper with transition
-swww img "$WALLPAPER" --transition-type any --transition-duration 2
+    # Get battery percentage (strip % symbol)
+    CHARGE=$(echo "$BATTERY_INFO" | awk '/percentage:/ {gsub(/%/, "", $2); print $2}')
+
+    # Check if charging OR battery > 95
+    if [ -n "$IS_CHARGING" ] || [ "$CHARGE" -gt 95 ]; then
+        echo "[+] Charging or battery is $CHARGE%. Changing wallpaper..."
+
+        WALLPAPER=$(find ~/Pictures/wallpapers -type f | shuf -n 1)
+        swww img "$WALLPAPER" --transition-type any --transition-duration 2
+
+        sleep 1200  # Sleep for 20 minutes
+    else
+        echo "[!] Not charging and battery ≤ 95%. Exiting."
+        exit 0
+    fi
+done
+
+
+
+
 
