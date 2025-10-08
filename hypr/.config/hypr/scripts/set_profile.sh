@@ -1,24 +1,30 @@
 #!/bin/bash
 
-profile=$1
+# Easy single command toggle: performance → balanced → powersave
+# Save the current profile in a temp file
+PROFILE_FILE="$HOME/.config/hypr/current_profile"
 
-# Set profile (adjust to your hardware as needed)
-case "$profile" in
-  performance)
-    echo "performance" > /sys/firmware/acpi/platform_profile
-    ;;
-  balanced)
-    echo "balanced" > /sys/firmware/acpi/platform_profile
-    ;;
-  powersave)
-    echo "low-power" > /sys/firmware/acpi/platform_profile
-    ;;
-  *)
-    ~/.config/hypr/scripts/notify_profile.sh invalid
-    exit 1
-    ;;
+# Read current profile
+current=$(cat "$PROFILE_FILE" 2>/dev/null || echo "powersave")
+
+# Determine next profile
+case "$current" in
+  powersave) next="balanced" ;;
+  balanced)  next="performance" ;;
+  performance) next="powersave" ;;
+  *) next="powersave" ;;
 esac
 
-# Call the notification
-~/.config/hypr/scripts/notify_profile.sh $profile
+# Apply CPU governor
+case "$next" in
+  performance) sudo cpupower frequency-set -g performance ;;
+  balanced)    sudo cpupower frequency-set -g ondemand ;;
+  powersave)   sudo cpupower frequency-set -g powersave ;;
+esac
+
+# Save new profile
+echo "$next" > "$PROFILE_FILE"
+
+# Show notification
+~/.config/hypr/scripts/notify_profile.sh "$next"
 
